@@ -6,10 +6,11 @@ $dato = mysql_query($sqlDameImagenesSlider, $cn->Conectarse());
 if ($dato == false) {
     echo '<h1>' . mysql_error() . '</h1>';
 }
-
 $sqlDameProductosImagenes = "SELECT * FROM productos p "
         . "INNER JOIN clasificados cl "
-        . "on p.codigoProducto = cl.codigoProducto";
+        . "on p.codigoProducto = cl.codigoProducto "
+        . "INNER JOIN tallas t on "
+        . "p.idtalla = t.idTalla";
 $datosProductosImagenes = mysql_query($sqlDameProductosImagenes, $cn->Conectarse());
 if ($datosProductosImagenes == false) {
     echo '<h1>' . mysql_error() . '<h1>';
@@ -159,32 +160,6 @@ if ($datosProductosImagenes == false) {
                 </div>
                 <div class="container">
                     <div class="row xsResponse">
-                        <div class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                            <div class="product">
-                                <!--esto es para el corazon!-->
-                                <a class="add-fav tooltipHere" data-toggle="tooltip" 
-                                   data-original-title="Add to Wishlist"  
-                                   data-placement="left">
-                                    <i class="glyphicon glyphicon-heart"></i>
-                                </a>
-                                <div class="image"> 
-                                    <a href="product-details.html">
-                                        <img src="images/product/30.jpg" alt="img" class="img-responsive">
-                                    </a>
-                                    <div class="promotion"> 
-                                        <span class="new-product"> NEW</span> 
-                                        <span class="discount">15% OFF</span> 
-                                    </div>
-                                </div>
-                                <div class="description">
-                                    <h4><a href="product-details.html">aliquam erat volutpat</a></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                                    <span class="size">XL / XXL / S </span> </div>
-                                <div class="price"> <span>$25</span> <span class="old-price">$75</span> </div>
-                                <div class="action-control"> <a class="btn btn-primary"> <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i> Add to cart </span> </a> </div>
-                            </div>
-                        </div>
-                        <!--/.item-->
                         <?php
                         while ($rsImagenes = mysql_fetch_array($datosProductosImagenes)) {
                             ?>
@@ -193,16 +168,16 @@ if ($datosProductosImagenes == false) {
                                     <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"  data-placement="left">
                                         <i class="glyphicon glyphicon-heart"></i>
                                     </a>
-
-                                    <div class="image"> <a href="product-details.html"><img src="../../subidas/<?php echo $rsImagenes["idProducto"]; ?>-_-0.jpg" alt="img" class="img-responsive"></a>
+                                    <div class="image"> 
+                                        <a href="product-details.php?codigoProducto=<?php echo $rsImagenes["codigoProducto"]; ?>">
+                                            <img src="../../subidas/<?php echo $rsImagenes["idProducto"]; ?>-_-0.jpg" alt="img" class="img-responsive">
+                                        </a>
                                         <div class="promotion"> <span class="discount">15% OFF</span> </div>
                                     </div>
                                     <div class="description">
                                         <h4><a href="product-details.html"><?php echo $rsImagenes["producto"]; ?></a></h4>
                                         <p><?php echo $rsImagenes["descripcion"]; ?></p>
                                         <span class="size">XL / XXL / S </span> </div>
-                                    <div class="price"> <span>$25</span> </div>
-                                    <div class="action-control"> <a class="btn btn-primary"> <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i> Add to cart </span> </a> </div>
                                 </div>
                             </div>
 
