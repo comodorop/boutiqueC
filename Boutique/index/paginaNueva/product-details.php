@@ -2,6 +2,7 @@
 include '../../daoconexion/daoConeccion.php';
 $cn = new coneccion();
 $codigoProducto = $_GET["codigoProducto"];
+$idGrupoProducto = 0;
 $sqlDameProductos = "SELECT * FROM productos p "
         . "INNER JOIN clasificados cl "
         . "on p.codigoProducto = cl.codigoProducto "
@@ -9,14 +10,16 @@ $sqlDameProductos = "SELECT * FROM productos p "
         . "p.idtalla = t.idTalla WHERE p.codigoProducto = '$codigoProducto'";
 $sqlDameImagenes = "SELECT * FROM imagenes WHERE codigoProducto ='$codigoProducto'";
 $sqlDameColores = "SELECT * FROM Colores WHERE codigoProducto = '$codigoProducto'";
-$sqlDamePrecios = "SELECT * FROM tarifas WHERE codigoProducto = '$codigoProducto'";
+$sqlDamePrecios = "SELECT * FROM tarifas WHERE codigoProducto = '$codigoProducto' and idListaPrecio='1'";
+$sqlClasificados = "SELECT * FROM clasificados WHERE codigoProducto ='$codigoProducto'";
 $cn->Conectarse();
 $datosProductos = mysql_query($sqlDameProductos);
 $datosImagenes = mysql_query($sqlDameImagenes);
 $datosColores = mysql_query($sqlDameColores);
 $datosPrecios = mysql_query($sqlDamePrecios);
+$datosClasificados = mysql_query($sqlClasificados);
 
-if ($datosColores == false || $datosImagenes == false || $datosPrecios == false || $datosProductos == false) {
+if ($datosColores == false || $datosImagenes == false || $datosPrecios == false || $datosProductos == false || $datosClasificados == false) {
     echo '<h1>' . mysql_error() . '</h1>';
 }
 ?>
@@ -157,7 +160,8 @@ if ($datosColores == false || $datosImagenes == false || $datosPrecios == false 
                                 <a href="#">
                                     <img src="../../subidas/<?php echo $rsImagenes["ruta"]; ?>" class="img-responsive" >
                                 </a> 
-                            <?php }
+                                <?php
+                            }
                         }
                         ?>
                     </div>
@@ -166,229 +170,97 @@ if ($datosColores == false || $datosImagenes == false || $datosPrecios == false 
 
                 <!-- right column -->
                 <div class="col-lg-6 col-md-6 col-sm-5">
-
-                    <h1 class="product-title"> Lorem ipsum dolor sit amet</h1>
-                    <h3 class="product-code">Product Code : DEN1098</h3>
+                    <br/><br/><br/>
+                    <?php
+                    while ($dat = mysql_fetch_array($datosProductos)) {
+                        $idGrupoProducto = $dat["idGrupoProducto"];
+                        ?>
+                        <h1 class="product-title"> <?php echo $dat["producto"]; ?></h1>
+                        <h3 class="product-code">CODIGO :<?php echo $dat["codigoProducto"]; ?></h3>
+                    <?php } ?>
                     <div class="product-price"> 
-                        <span class="price-sales"> $70</span> 
-                        <span class="price-standard">$95</span> 
+                        <span class="price-sales"> 
+                            <?php
+                            while ($rsTarifas = mysql_fetch_array($datosPrecios)) {
+                                echo "$" . $rsTarifas["tarifa"] . "&nbsp;mxn";
+                            }
+                            ?>
+                        </span> 
+                    <!--<span class="price-standard">$95</span>--> 
                     </div>
-
-                    <div class="details-description">
-                        <p>In scelerisque libero ut elit porttitor commodo Suspendisse laoreet magna. </p>
-                    </div>
-
                     <div class="color-details"> 
                         <span class="selected-color"><strong>COLOR</strong></span>
                         <ul class="swatches Color">
-                            <li class="selected"> <a style="background-color:#f1f40e" > </a> </li>
-                            <li> <a style="background-color:#adadad" > </a> </li>
-                            <li> <a style="background-color:#4EC67F" > </a> </li>
-                        </ul>
+                            <?php
+                            while ($datosColo = mysql_fetch_array($datosColores)) {
+                                ?>
+                                <li> <a style="background-color:#<?php echo $datosColo["color"]; ?>" > </a> </li>
+                                <?php
+                            }
+                            ?>
+                        </ul>gru
                     </div>
-                    <!--/.color-details-->
-
-                    <div class="productFilter">
-                        <div class="filterBox">
-                            <select>
-                                <option value="strawberries" selected>Quantity</option>
-                                <option value="mango">1</option>
-                                <option value="bananas">2</option>
-                                <option value="watermelon">3</option>
-                                <option value="grapes">4</option>
-                                <option value="oranges">5</option>
-                                <option value="pineapple">6</option>
-                                <option value="peaches">7</option>
-                                <option value="cherries">8</option>
-                            </select>
-                        </div>
-                        <div class="filterBox">
-                            <select>
-                                <option value="strawberries" selected>Size</option>
-                                <option value="mango">XL</option>
-                                <option value="bananas">XXL</option>
-                                <option value="watermelon">M</option>
-                                <option value="apples">L</option>
-                                <option value="apples">S</option>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- productFilter -->
-
-                    <div class="cart-actions">
-                        <div class="addto">
-                            <button onclick="productAddToCartForm.submit(this);" class="button btn-cart cart first" title="Add to Cart" type="button">Add to Cart</button>
-                            <a class="link-wishlist wishlist"  >Add to Wishlist</a> </div>
-
-                        <div style="clear:both"></div>
-
-                        <h3 class="incaps"><i class="fa fa fa-check-circle-o color-in"></i> In stock</h3>
-                        <h3 style="display:none" class="incaps"><i class="fa fa-minus-circle color-out"></i> Out of stock</h3>
-                        <h3 class="incaps"> <i class="glyphicon glyphicon-lock"></i> Secure online ordering</h3>
-                    </div>
-                    <!--/.cart-actions-->
 
                     <div class="clear"></div>
 
                     <div class="product-tab w100 clearfix">
 
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
-                            <li> <a href="#size" data-toggle="tab">Size</a></li>
-                            <li> <a href="#shipping" data-toggle="tab">Shipping</a></li>
+                            <li class="active"><a href="#details" data-toggle="tab">Descripción</a></li>
+
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active" id="details">Sed ut eros felis. Vestibulum rutrum imperdiet nunc a interdum. In scelerisque libero ut elit porttitor commodo. Suspendisse laoreet magna nec urna fringilla viverra.<br>
-                                100% Cotton<br></div>
-                            <div class="tab-pane" id="size"> 16" waist<br>
-                                34" inseam<br>
-                                10.5" front rise<br>
-                                8.5" knee<br>
-                                7.5" leg opening<br>
-                                <br>
-                                Measurements taken from size 30<br>
-                                Model wears size 31. Model is 6'2 <br>
+                            <div class="tab-pane active" id="details">
+                                <?php
+                                while ($datosCaract = mysql_fetch_array($datosClasificados)) {
+                                    echo $datosCaract["descripcion"];
+                                }
+                                ?>
                                 <br>
                             </div>
-
-                            <div class="tab-pane" id="shipping">
-                                <table >
-                                    <colgroup>
-                                        <col style="width:33%">
-                                        <col style="width:33%">
-                                        <col style="width:33%">
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <td>Standard</td>
-                                            <td>1-5 business days</td>
-                                            <td>$7.95</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Two Day</td>
-                                            <td>2 business days</td>
-                                            <td>$15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Next Day</td>
-                                            <td>1 business day</td>
-                                            <td>$30</td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="3">* Free on orders of $50 or more</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-
                         </div> <!-- /.tab content -->
-
                     </div><!--/.product-tab-->
 
                     <div style="clear:both"></div>
-
-                    <div class="product-share clearfix">
-                        <p> SHARE </p>
-                        <div class="socialIcon"> 
-                            <a href="#"> <i  class="fa fa-facebook"></i></a> 
-                            <a href="#"> <i  class="fa fa-twitter"></i></a> 
-                            <a href="#"> <i  class="fa fa-google-plus"></i></a> 
-                            <a href="#"> <i  class="fa fa-pinterest"></i></a> </div>
-                    </div>
-                    <!--/.product-share--> 
-
-                </div><!--/ right column end -->
-
+                </div>
             </div>
-            <!--/.row-->
-
             <div class="row recommended">
 
-                <h1> YOU MAY ALOS LIKE </h1>
+                <h1> Ver mas productos relacionados </h1>
+                <?php
+                $sqlDameProductosImagenes = "SELECT * FROM productos p "
+                        . "INNER JOIN clasificados cl "
+                        . "on p.codigoProducto = cl.codigoProducto "
+                        . "INNER JOIN tallas t on "
+                        . "p.idtalla = t.idTalla "
+                        . "WHERE p.idGrupoProducto='$idGrupoProducto'";
+                $datosProductosImagenes = mysql_query($sqlDameProductosImagenes, $cn->Conectarse());
+                if ($datosProductosImagenes == false) {
+                    echo '<h1>' . mysql_error() . '<h1>';
+                }
+                ?>
                 <div id="SimilarProductSlider">
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/a1.jpg"  alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">YOUR LIFE</a></h4>
-                                <div class="price"> <span>$57</span> </div>
+                    <?php
+                    while ($rsImagenes = mysql_fetch_array($datosProductosImagenes)) {
+                        ?>
+                        <div class="item">
+                            <div class="product"> 
+                                <a class="product-image" href="product-details.php?codigoProducto=<?php echo $rsImagenes["codigoProducto"]; ?>"> 
+                                    <!--<img src="../../subidas/"  alt="img">--> 
+                                    <img src="../../subidas/<?php echo $rsImagenes["idProducto"]; ?>-_-0.jpg" alt="img" >
+                                </a>
+                                <div class="description">
+                                    <h4><a href="san-remo-spaghetti">YOUR LIFE</a></h4>
+                                    <div class="price"> <span>$57</span> </div>
+                                </div>
                             </div>
-                        </div>
-                    </div><!--/.item-->
-
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/a2.jpg"  alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">RED CROWN</a></h4>
-                                <div class="price"> <span>$44</span> </div>
-                            </div>
-                        </div>
-                    </div><!--/.item-->
-
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/a3.jpg" alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">WHITE GOLD</a></h4>
-                                <div class="price"> <span>$35</span></div>
-                            </div>
-                        </div>
-                    </div><!--/.item-->
-
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/a4.jpg"  alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">DENIM 4240</a></h4>
-                                <div class="price"> $<span>55</span></div>
-                            </div>
-                        </div>
-                    </div><!--/.item-->
-
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/30.jpg"  alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">CROWN ROCK</a></h4>
-                                <div class="price"> <span>$500</span> </div>
-                            </div>
-                        </div>
-                    </div><!--/.item-->
-
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/a5.jpg"  alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">SLIM ROCK</a></h4>
-                                <div class="price"> <span>$50 </span> </div>
-                            </div>
-                        </div>
-                    </div><!--/.item-->
-
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/36.jpg"  alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">ROCK T-Shirts </a></h4>
-                                <div class="price"> <span>$130</span> </div>
-                            </div>
-                        </div>
-                    </div><!--/.item-->
-
-                    <div class="item">
-                        <div class="product"> <a class="product-image" > <img src="images/product/13.jpg"  alt="img"> </a>
-                            <div class="description">
-                                <h4><a href="san-remo-spaghetti">Denim T-Shirts </a></h4>
-                                <div class="price"> <span>$43</span> </div>
-                            </div>
-                        </div>
-                    </div><!--/.item-->
+                        </div><!--/.item-->
+                    <?php } ?> 
                 </div>  <!--/.recommended--> 
-
             </div>
-
-
             <div style="clear:both"></div>
-
-
         </div> <!-- /main-container -->
 
 

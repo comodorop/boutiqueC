@@ -18,8 +18,8 @@
                         <br/>
                         Todas las imagenes a subir deben de tener la siguiente medida en <strong>pixeles.</strong>
                         <br>
-                        <strong>Altura  :  380 px. </strong><br>
-                        <strong>Anchura :  285 px.</strong>
+                        <strong>Altura  :  875 px. </strong><br>
+                        <strong>Anchura :  699 px.</strong>
                     </div>
                     <div class="form-group">
                         <label>Codigo del producto:</label>
