@@ -1,12 +1,14 @@
 <?php
 include '../../daoconexion/daoConeccion.php';
 $cn = new coneccion();
-$sql = "";
+$cn->Conectarse();
+$idGrupoProducto=$_GET["idGrupo"];
+$idTipo=$_GET["idCategoria"];
 $sqlDameProductos = "SELECT * FROM productos p 
         INNER JOIN clasificados cl 
         on p.codigoProducto = cl.codigoProducto 
         INNER JOIN tallas t on 
-        p.idtalla = t.idTalla  order by idProducto limit 0,12 ";
+        p.idtalla = t.idTalla  where p.idGrupoProducto='$idTipo' and cl.idTipo='$idGrupoProducto'  order by idProducto limit 0,12 ";
 ?>
 
 <div class="col-lg-9 col-md-9 col-sm-12" id="mostrarProductos">
@@ -77,9 +79,6 @@ $sqlDameProductos = "SELECT * FROM productos p
                 <li> <a href="#">5</a></li>
                 <li> <a href="#">»</a></li>
             </ul>
-        </div>
-        <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
-            <p>Showing 1–450 of 12 results</p>
         </div>
     </div>
     <!--/.categoryFooter--> 

@@ -136,6 +136,24 @@ $(document).ready(function () {
     });
 
 
+    $("#btnGuardarMaterial").click(function () {
+        var material = $("#txtnombreMaterial").val();
+        if (material == "") {
+            alertify.error("Se requiere un material");
+        }
+        else {
+            var info = "material=" + material;
+            $.get("guardarMaterial.php", info, function (respuesta) {
+                alertify.success(respuesta);
+                $("#selectMaterial").load("dameMaterial.php", function () {
+                    $("#selectMaterial").selectpicker();
+                    $("#selectMaterial").selectpicker();
+                    $("#selectMaterial").selectpicker('refresh');
+                });
+            });
+        }
+    });
+
 
     $("#mostrarDivProveedor").hide("slow");
     $("#agregarProveedor").click(function () {
