@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("#btnGuardarGrupo").click(function () {
         var nombreGrupo = $("#txtnombreGrupo").val().toUpperCase();
         if (nombreGrupo == "") {
-            alertify.error("Se requiere una Talla");
+            alertify.error("Se requiere una Tallaa");
         }
         else {
             var info = "nombreTalla=" + nombreGrupo;
