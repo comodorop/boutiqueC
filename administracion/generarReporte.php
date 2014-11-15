@@ -175,9 +175,9 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 
 } </script>';
-    $valor .= ' <center>
-   <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/> 
-    </center>';
+    $valor .= ' 
+   <img src="../index/paginaNueva/koolash/logoChico.jpg" width="785px"/> 
+    ';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">';
         while ($datosOrden = mysql_fetch_array($datos)) {

@@ -68,7 +68,7 @@ $verificasession->validaSesion();
                 </div>
                 <div class="panel-body">
                     <div id="mostrar">
-                        <img class="img-responsive " style="margin: 0 auto; width: 25%" src="administracion.imgs/ChabriLogo.png" alt="">
+                        <img class="img-responsive " style="margin: 0 auto; width: 25%" src="../index/paginaNueva/koolash/logokoolash.jpg" alt="">
                     </div>
                     <a href="#" class="scrollUp"></a>
                 </div>

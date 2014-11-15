@@ -82,61 +82,7 @@ if ($datosColores == false || $datosImagenes == false || $datosPrecios == false 
 
 
         <!-- Fixed navbar start -->
-        <div class="navbar navbar-tshop navbar-fixed-top  " role="navigation">
-            <!--/.navbar-top-->
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> </button>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart"> <i class="fa fa-shopping-cart colorWhite"> </i> <span class="cartRespons colorWhite"> Cart ($210.00) </span> </button>
-                    <a class="navbar-brand " href="index.html"> <img src="images/logo.png" alt="TSHOP"> </a> 
-
-                    <!-- this part for mobile -->
-                    <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
-                        <div class="input-group">
-                            <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
-                        </div>
-                        <!-- /input-group --> 
-
-                    </div>
-                </div>
-                <!-- this part is duplicate from cartMenu  keep it for mobile -->
-
-                <!--/.navbar-cart-->
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"> <a href="#"> Home </a> </li>
-                        <li > <a href="#"> Galeria </a> </li>
-                        <li > <a href="#"> Contactanos </a> </li>
-                        <!-- change width of megamenu = use class > megamenu-fullwidth, megamenu-60width, megamenu-40width -->
-                    </ul>
-                    <!--- this part will be hidden for mobile version -->
-                    <div class="nav navbar-nav navbar-right hidden-xs">
-                        <div class="search-box">
-                            <div class="input-group">
-                                <button class="btn btn-nobg getFullSearch" type="button"> 
-                                    <i class="fa fa-search"> </i> 
-                                </button>
-                            </div>
-                            <!-- /input-group --> 
-                        </div>
-                        <!--/.search-box --> 
-                    </div>
-                    <!--/.navbar-nav hidden-xs--> 
-                </div>
-                <!--/.nav-collapse --> 
-            </div>
-            <!--/.container -->
-            <div class="search-full text-right"> 
-                <a class="pull-right search-close"> 
-                    <i class=" fa fa-times-circle"> </i> 
-                </a>
-                <div class="searchInputBox pull-right">
-                    <input type="search"  data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search" class="search-input">
-                    <button class="btn-nobg search-btn" type="submit"> <i class="fa fa-search"> </i> </button>
-                </div>
-            </div>
-            <!--/.search-full--> 
-        </div>
+      <?php include './menu.php';?>
         <!-- /.Fixed navbar  --><div class="container main-container headerOffset">
             <div class="row">
                 <div class="breadcrumbDiv col-lg-12">

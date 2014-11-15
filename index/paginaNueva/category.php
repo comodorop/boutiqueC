@@ -7,6 +7,30 @@ $sqlDameProductos = "SELECT * FROM productos p
         on p.codigoProducto = cl.codigoProducto 
         INNER JOIN tallas t on 
         p.idtalla = t.idTalla  order by idProducto limit 0,12 ";
+//FALTA LA CONFIGURACIOND E LA PAGINACION
+$sqlDamePaginacion = "SELECT count(p.codigoProducto) as total FROM productos p 
+        INNER JOIN clasificados cl 
+        on p.codigoProducto = cl.codigoProducto 
+        INNER JOIN tallas t on 
+        p.idtalla = t.idTalla  order by idProducto";
+$datosPaginacion = mysql_query($sqlDamePaginacion);
+$cociente = 0;
+$reciduo = 0;
+$totalRegistros;
+$dividendo = 12;
+if ($datosPaginacion == false) {
+    echo '<h1>' . mysql_error() . '</h1>';
+} else {
+    while ($rsPaginacion = mysql_fetch_array($datosPaginacion)) {
+        $totalRegistros = $rsPaginacion["total"];
+    }
+
+    $cociente = floor($totalRegistros / $dividendo);
+    $reciduo = fmod($totalRegistros, $dividendo);
+    if ($reciduo > 0) {
+        $cociente = $cociente + 1;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +146,7 @@ $sqlDameProductos = "SELECT * FROM productos p
                                                         $ra = mysql_query($sqlTipoProducto);
                                                         while ($datosTipoProduco = mysql_fetch_array($ra)) {
                                                             ?>
-                                                        <li> <a onclick="dameProductosCategoria('<?php echo $datosTipoProduco["idTiposProducto"];?>', '<?php echo $datosTipoProduco["idGrupoProducto"];   ?>')"><?php echo $datosTipoProduco["TiposProducto"]; ?></a> </li>
+                                                            <li> <a onclick="dameProductosCategoria('<?php echo $datosTipoProduco["idTiposProducto"]; ?>', '<?php echo $datosTipoProduco["idGrupoProducto"]; ?>')"><?php echo $datosTipoProduco["TiposProducto"]; ?></a> </li>
                                                         <?php } ?>
                                                     </ul>
                                                 </li>
@@ -199,17 +223,17 @@ $sqlDameProductos = "SELECT * FROM productos p
                     <div class="w100 categoryFooter">
                         <div class="pagination pull-left no-margin-top">
                             <ul class="pagination no-margin-top">
-                                <li> <a href="#">«</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li> <a href="#">2</a></li>
-                                <li> <a href="#">3</a></li>
-                                <li> <a href="#">4</a></li>
-                                <li> <a href="#">5</a></li>
-                                <li> <a href="#">»</a></li>
+                                <li> 
+                                    <a href="#"><<</a></li>
+                                <?php
+                                for ($x = 0; $x < $cociente; $x++) {
+                                    ?>
+                                    <li class="<?php if ($x == 0) { ?>active<?php } ?>"><a href="#">1</a></li>
+                                    <?php
+                                }
+                                ?>
+                                <li> <a>>></a></li>
                             </ul>
-                        </div>
-                        <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
-                            <p>Showing 1–450 of 12 results</p>
                         </div>
                     </div>
                     <!--/.categoryFooter--> 

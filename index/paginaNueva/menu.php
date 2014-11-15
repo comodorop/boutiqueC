@@ -60,7 +60,7 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> </button>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart"> <i class="fa fa-shopping-cart colorWhite"> </i> <span class="cartRespons colorWhite"> Cart ($210.00) </span> </button>
-            <a class="navbar-brand " href="index.html"> <img src="images/logo.png" alt="TSHOP"> </a> 
+            <a class="navbar-brand " href="index.html"> <img src="koolash/logoChicoPNG.png" alt="TSHOP"> </a> 
             <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
                 <div class="input-group">
                     <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>

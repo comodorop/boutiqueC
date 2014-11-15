@@ -48,7 +48,7 @@ $verificasession->validaSesion();
                                 <li id="2" class=""><a href="javascript:entroProducto();">Agregar o editar productos</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header"></li>
-                                <li id="12" class=""><a href="javascript:entroAgranel();">Incrementar productos a granel</a></li>
+                                <!--<li id="12" class=""><a href="javascript:entroAgranel();">Incrementar productos a granel</a></li>-->
                                 <li id="4" class=""><a href="javascript:entroListaPrecio();">Listas de precios</a></li>
                                 <li id="1" class=""><a href="javascript:entroMarca();">Marcas</a></li>
                             </ul>
@@ -62,9 +62,9 @@ $verificasession->validaSesion();
                                 <li id="10" class=""><a href="javascript:entroVentas();">Ventas</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header"></li>
-                                <li id="6" class=""><a href="javascript:ordenCompra();">Orden de compra y cotizaciones</a></li>
+                                <!--<li id="6" class=""><a href="javascript:ordenCompra();">Orden de compra y cotizaciones</a></li>-->
                                 <!--<li id="13" class=""><a href="javascript:entroClientePedido();">Pedidos de clientes</a></li>-->
-                                <li id="11" class=""><a href="javascript:entroTrasferencia();">Transferencias</a></li>
+                                <!--<li id="11" class=""><a href="javascript:entroTrasferencia();">Transferencias</a></li>-->
                                 <li id="16" class=""><a href="javascript:entroReportes();">Reportes</a></li>
                             </ul>
                         </li>
@@ -108,7 +108,7 @@ $verificasession->validaSesion();
                 </div>
                 <div class="panel-body">
                     <div id="mostrar">
-                        <img class="img-responsive " style="margin: 0 auto; width: 25%" src="administracion.imgs/ChabriLogo.png" alt="">
+                        <img class="img-responsive " style="margin: 0 auto; width: 25%" src="../index/paginaNueva/koolash/logokoolash.jpg" alt="">
                     </div>
                     <a href="#" class="scrollUp"></a>
                 </div>

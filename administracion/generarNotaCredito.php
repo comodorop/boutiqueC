@@ -153,9 +153,9 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 
 } </script>';
-$valor .= ' <center>
-   <img src="administracion.imgs/cabecera_' . $sucursal . '.png" width="785px"/> 
-    </center>';
+$valor .= ' 
+   <img src="../index/paginaNueva/koolash/logoChico.jpg" width="785px"/> 
+    ';
 $valor .= '      <table class="CSSTableGenerator">';
 while ($data = mysql_fetch_array($datos)) {
     $valor .= ' <tr><td>Nombre:<br> ' . $data["nombre"] . ' </td><td>RFC:<br> ' . $data["rfc"] . ' </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">' . $data[16] . '</label><br>Fecha de emision:<br>' . $data["fecha"] . '</td></tr>

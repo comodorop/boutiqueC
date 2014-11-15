@@ -668,6 +668,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">Autorización</h4>
+                        <div class="alert alert-warning" role="alert">Al finalizar el dia no podran acceder al sistema de ventas hasta el dia siguiente.</div>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" role="form">

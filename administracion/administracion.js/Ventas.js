@@ -392,18 +392,13 @@ function calcularSumaTotal() {
 function calcularIva(sumaTotalProductos) {
     var iva = 0.00;
     var ivaTotal = 0.00;
-
-    ivaTotal = ((sumaTotalProductos / 1.16) * .16);
-//    iva = sumaTotalProductos * 0.16;
-//    ivaTotal = sumaTotalProductos * 1.16;
-    $("#ivaTotal").val(ivaTotal.toFixed(2));
+//DESCOMENTAR PARA QUE CALCULE EL IVA
+//    ivaTotal = ((sumaTotalProductos / 1.16) * .16);
+//    $("#ivaTotal").val(ivaTotal.toFixed(2));
+//-------ELIMINAR LAS DOS LINEAS DE ABAJO.-----------
+    ivaTotal = 0;
+    $("#ivaTotal").val(ivaTotal);
     $("#totalVenta").val(sumaTotalProductos.toFixed(2));
-//    $("#ivaTotal").val(iva.toFixed(2));
-//    $("#totalVenta").val(ivaTotal.toFixed(2));
-
-
-
-
 }
 
 

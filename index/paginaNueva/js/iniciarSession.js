@@ -29,6 +29,7 @@ $("#loginbtn").click(function () {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
                     alertify.success("ES UN VENDEDOR");
+                     document.location.href = '../../administracion/gestionAdministrativaVentas.php';
                 }
                 if (respuesta == 4) {
                     $("#loginuser").val("");

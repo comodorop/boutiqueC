@@ -150,7 +150,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 } </script>';
 $valor .= ' <center>
-   <img src="administracion.imgs/cabecera_' . $sucursal . '.png" width="785px"/> 
+   <img src="../index/paginaNueva/koolash/logoChico.jpg" width="785px"/> 
     </center>';
 $valor .= '      <table class="CSSTableGenerator">';
 while ($data = mysql_fetch_array($datos)) {

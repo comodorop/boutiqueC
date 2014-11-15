@@ -4760,7 +4760,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante "
                 . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto "
                 . "INNER JOIN ventasUsuario v ON x.idXmlComprobante = v.idXmlComprobante "
-                . "INNER JOIN usuarios u ON v.usuario = u.usuario "
+                . "INNER JOIN usuarios u ON v.usuario = u.idUsuario "
                 . "WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = 'Ventas' and x.idSucursal = '$sucursal' and statusOrden='$status' ";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
