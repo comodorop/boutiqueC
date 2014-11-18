@@ -50,6 +50,11 @@ $(document).ready(function () {
                 }
             });
         }
+        else if (idTipoPago == 8) {
+            alert("tipo pago abonos");
+            $("#pagarCobranza").show();
+            $("#mdlPagar").modal('show');
+        }
         else {
             $('#mdlPagar').modal('show');
         }
@@ -127,7 +132,9 @@ $(document).ready(function () {
     $("#btnPagar").click(function () {
         var datos = parseFloat($("#txtCantidad").val());
         var total = parseFloat($("#totalV").text());
-        if (idTipoPago != 2) {
+        alert(idTipoPago);
+        if (idTipoPago != 2 && idTipoPago != 8) {
+            alert("entro aqui");
             if (isNaN(datos)) {
                 alertify.error("Ingrese solo numeros");
             }
@@ -155,10 +162,6 @@ $(document).ready(function () {
                                 callbacks.add(limpiarOrdenesCompra());
                                 callbacks.add($("#txtFolioCobrar").val(""));
                                 alertify.success("Exito venta concretada");
-//                                $(location).attr('href', "generarNotaCompra.php?folio=" + respuesta);
-//                                callbacks.add(window.location = "generarNotaCompra.php?folio=" + respuesta, '_blank');
-//    
-//                                                            window.location = "generarNotaCompra.php?folio=' + respuesta";
                                 var status = 0;
                                 if (idTipoPago == 2) {
                                     status = 8;
@@ -175,6 +178,7 @@ $(document).ready(function () {
             }
         }
         else {
+            alert("entro alla");
 //            este else nos sirve para guardar la informacion en creditos
             var cambio = datos - total;
             if (datos > total) {
@@ -191,7 +195,7 @@ $(document).ready(function () {
                     if (respuesta > 0) {
                         alertify.success("Exito venta concretada");
                         var status = 0;
-                        if (idTipoPago == 2) {
+                        if (idTipoPago == 2 || idTipoPago == 8) {
                             status = 8;
                         }
                         else {

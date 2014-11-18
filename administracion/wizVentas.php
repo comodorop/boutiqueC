@@ -74,6 +74,14 @@
                         <option></option>
                     </select>
                     <div id="creditoCliente" style="margin-left: 35px"></div>
+                    <select class="form-control" 
+                            id="cmbSistemaPartado"
+                            style="margin-left: 35px;
+                            margin-top: 10px">
+                        <option value="0">Seleccione los dias</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                    </select>
                 </div>
                 <br/>
                 <br/>
@@ -385,7 +393,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Ordenes de Compra</h4>
+                        <h4 class="modal-title" id="myModalLabel">Pagos Credito o Sistema de apartado</h4>
                     </div>
 
                     <div class="modal-body">

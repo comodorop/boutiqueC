@@ -1,4 +1,5 @@
 function XmlComprobante() {
+    this.diasApartado = 0;
     this.fechaComprobante = "";
     this.subTotalComprobante = 0.00;
     this.sdaComprobante = 0.00;

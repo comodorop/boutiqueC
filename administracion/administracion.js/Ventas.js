@@ -470,7 +470,14 @@ function guardarDatosEncabezado() {
     encabezadoVentas.descuentoPorProductoComprobantes = "";
     encabezadoVentas.totalComprobante = $("#totalVenta").val();
     encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
-
+    if ($("#cmbTipoPago").val() == 8) {
+        alert("entro");
+        encabezadoVentas.diasApartado = $("#cmbSistemaPartado").val();
+    }
+    else {
+        alert("no entro");
+        encabezadoVentas.diasApartado = 0;
+    }
     var nombre = $("#txtNombreCliente").val();
     if (nombre == "") {
         nombre = "1";
@@ -623,6 +630,7 @@ function verificar() {
 }
 
 $(document).ready(function () {
+    $("#cmbSistemaPartado").hide();
     $("#tiposPagosNotasCredito").load("dameTiposPagos.php");
     verificar();
     $("#btnGuardarIngresoCaja").click(function () {
@@ -680,6 +688,8 @@ $(document).ready(function () {
 
 
     $("#guardarVenta").click(function () {
+        var tipoPago = $("#cmbTipoPago").val();
+        var dias = $("#cmbSistemaPartado").val();
         var paso = true;
         if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
@@ -690,6 +700,9 @@ $(document).ready(function () {
                 if ($("#cmbClientes").val() == 0 && nombreCliente == "") {
                     $("#txtNombreCliente").val("");
                     alertify.error("Es requerido el nobre del cliente");
+                }
+                else if (tipoPago == 8 && dias == 0) {
+                    alertify.error("Seleccione el los dia del sistema de apartado");
                 }
                 else {
                     var ok = validarDetalle();
@@ -864,6 +877,7 @@ $(document).ready(function () {
 
     $("#cmbTipoPago").change(function () {
         var dato = $("#cmbTipoPago").val();
+        $("#cmbSistemaPartado").slideUp('slow');
         var rfc = $("#cmbClientes").val();
         $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
         if (dato == 2) {
@@ -882,6 +896,9 @@ $(document).ready(function () {
                 $("#cmbTipoPago option[value='1']").attr("selected", true);
                 alertify.error("Seleccione un cliente");
             }
+        }
+        else if (dato == 8) {
+            $("#cmbSistemaPartado").slideDown('slow');
         }
     });
 
