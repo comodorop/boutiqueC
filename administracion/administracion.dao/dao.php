@@ -3132,7 +3132,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultarDatosAbonos($folio, $sucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xc "
                 . "INNER JOIN clientes cl ON xc.rfcComprobante = cl.rfc "
-                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND statusOrden = '8'";
+                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND statusOrden = '8' or statusOrden =''";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = 1;
@@ -3285,7 +3285,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $idXmlComprobante = 0;
         $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal,statusOrden,idTipoPago, nombreCliente,diasCredito)"
                 . " VALUES ('" . date("d/m/Y") . "','" . $encabezado[0]->subTotalComprobante . "','" . $encabezado[0]->sdaComprobante . "','" . $encabezado[0]->rfcComprobante . "', "
-                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '" . $nombre . "', '".$encabezado[0]->diasApartado."')";
+                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '" . $nombre . "', '" . $encabezado[0]->diasApartado . "')";
         $datos = mysql_query($sqlComprobanteGuardar);
         $idXmlComprobante = 0;
         if ($datos == false) {
@@ -3962,7 +3962,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                         $error = mysql_error();
                         mysql_query("ROLLBACK;");
                     } else {
-                        if ($idTipoPago == 2) {
+                        if ($idTipoPago == 2 || $idTipoPago == 8) {
                             $sqlXmlComprobantes = "SELECT rfcComprobante FROM xmlcomprobantes WHERE idXmlComprobante ='$idXmlComprobante'";
                             $rsXmComprobantes = mysql_query($sqlXmlComprobantes);
                             if ($rsXmComprobantes == false) {
