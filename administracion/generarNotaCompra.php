@@ -19,6 +19,8 @@ $cn = new coneccion();
 $dao = new dao();
 $util = new Utilerias();
 $cn->Conectarse();
+$idTipoPago;
+$idXmlComprobante;
 $datos = $dao->obtenerDatosCompra($folio, $sucursal, $tipoReporte);
 
 if (!is_resource($datos)) {
@@ -160,8 +162,10 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
     $valor .= ' 
    <img  style="margin-left:10px" src="../index/paginaNueva/koolash/logoChico.jpg"/> 
     ';
-    $valor .= '      <table class="CSSTableGenerator">';
+    $valor .= '<table class="CSSTableGenerator">';
     while ($data = mysql_fetch_array($datos)) {
+        $idTipoPago = $data["idTipoPago"];
+        $idXmlComprobante = $data["idXmlComprobante"];
         $valor .= ' <tr ><td style="width: 420px">Nombre del Cliente:<br> ' . ucwords(strtolower($data["nombreCliente"])) . '<br>RFC: ' . $data["rfcComprobante"] . '</td><td><span style="font-size: large">Nota de Venta</span><br><span>Folio: ' . $folio . '</span><br><span style="font-size: smaller">Fecha de Expedici&oacute;n: ' . $data["fechaComprobante"] . '</span><br><span style="font-size: smaller">Lugar de Expedici&oacute;n: M&eacute;rida, Yucat&aacute;n, M&eacute;xico</span><br><span style="font-size: smaller">Vendedor: ' . ucwords(strtolower($data["nombre"])) . ' ' . ucwords(strtolower($data["apellidoPaterno"])) . ' ' . ucwords(strtolower($data["apellidoMaterno"])) . '</span></td></tr>';
         break;
     }
@@ -188,11 +192,40 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
         $importereal = $datosOrden["cantidadConcepto"] * $datosOrden["precioUnitarioConcepto"];
         $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td>' . $datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($importereal, 2) . '</td></tr>';
     }
-
     $valor .= '</table>';
-    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td></td><td></tr></tr><tr><td> Subtotal :</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc.: </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr></table><table class="CSSTableGenerator" style="position:absolute; top:58px; left:490px; width:30%; "><tr><td>Total:</td><td style="text-align: right">$' . number_format($total, 2) . '</td></tr></table>';
+    $valor.="<br></br>";
+    if ($idTipoPago == 8) {
+        $sqlDameAbonos = "select * from abonos WHERE folioComprobante = '$folio'";
+        $datosAbonos = mysql_query($sqlDameAbonos);
+        if ($datosAbonos == false) {
+            echo '<h1>' . mysql_error() . '</h1>';
+        } else {
+            $valor.="<strong>Relacion de pagos hechos : </strong><br></br><br></br>";
+            $valor.="<table class='CSSTableGenerator'>";
+            $valor.="<tr><td>Fecha</td><td>Cantidad</td></tr>";
+            while ($rsAbonos = mysql_fetch_array($datosAbonos)) {
+                $valor.="<tr>";
+                $valor.="<td>" . $rsAbonos["fechaAbono"] . "</td>";
+                $valor.="<td>" . $rsAbonos["importe"] . "</td>";
+                $valor.="</tr>";
+            }
+            $valor.= "</table>";
+        }
+    }
+
+
+    $valor.="<br></br>";
+    $valor .= '<div style="position:relative"><br>'
+            . '<table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; ">'
+            . '<tr><td></td><td></tr></tr><tr><td> Subtotal :</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc.: </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr></table><table class="CSSTableGenerator" style="position:absolute; top:58px; left:490px; width:30%; "><tr><td>Total:</td><td style="text-align: right">$' . number_format($total, 2) . '</td></tr>'
+            . '</table>';
+
     $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $util->numtoletras($total) . '</td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
-    $valor .= '<br></body></html>';
+    $valor.= '<br></br><br></br>';
+    if ($idTipoPago == 8) {
+        $valor.= '<h3>Comprobante de un sistema de apartado</h3>';
+    }
+    $valor.= '</body></html>';
 }
 //Termina Diseño================================================================
 # Definimos el tamaÃ±o y orientaciÃ³n del papel que queremos.
